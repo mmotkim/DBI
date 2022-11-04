@@ -28,12 +28,13 @@ create table Publisher (
 go
 
 create table Book (
-	bkId  varchar(10) primary key,
+	bkId int primary key,
 	bkTitle nvarchar(50) not null,
 	bkPrice money not null,
 	bkGenreID int, -- references to Genre
 	bkPublisherId int, -- reference to Publisher
 	bkAuthorId int, -- reference to Author 
+	bkStock int not null
 )
 go
 
@@ -71,6 +72,10 @@ ADD CONSTRAINT Default_bkPrice
 DEFAULT 0 FOR bkPrice;
 go
 
+ALTER TABLE Book
+ADD CONSTRAINT Default_bkStock
+DEFAULT 0 FOR bkStock;
+go
 
 create table Orders (
 	ordId int primary key,
@@ -92,7 +97,7 @@ go
 create table OrderDetail (
 	odId int identity(1,1) primary key,
 	odQuantity int,
-	odBookId  varchar(10),
+	odBookId  int,
 	odOrderId int, 
 	odDiscount int,
 )
@@ -122,7 +127,7 @@ create table Comments (
 	UserID int,
 	Rating int not null,
 	content nvarchar(100),
-	bookID varchar(10) 
+	bookID int 
 )
 go
 
