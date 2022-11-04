@@ -24,16 +24,18 @@ go
 create procedure proc_UpdateBookInfo(
 	@bkID int,
 	@bkTitle nvarchar(50),
-	@bkPrice money
+	@bkPrice money,
+	@bkStock int
 	)
 as update Book
 	set 
 		bkTitle = @bkTitle,
+		bkStock = @bkStock,
 		bkPrice = @bkPrice
 	where bkId = @bkID;
 go
 --test insert
-insert into Book(bkId, bkTitle, bkPrice, bkGenreID, bkPublisherId, bkAuthorId)
+insert into Book(bkId, bkTitle, bkPrice, bkGenreID, bkPublisherId, bkAuthorId, bkStock)
 values ('100','toUpdate',1,1,1,1)
 go
 --test update
