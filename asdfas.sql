@@ -1,5 +1,4 @@
-create database VinaBook69
-
+use suckmydick;
 
 create table UserAccounts (
 	userID int identity(1,1) primary key,
@@ -71,10 +70,6 @@ ALTER TABLE Book
 ADD CONSTRAINT Default_bkPrice
 DEFAULT 0 FOR bkPrice;
 go
-ALTER TABLE Book
-ADD CONSTRAINT Default_bkAvailableQuantity
-DEFAULT 0 FOR bkAvailableQuantity;
-go
 
 
 create table Orders (
@@ -105,21 +100,21 @@ go
 --OrderDetail FK
 alter table OrderDetail
 add constraint FK_OrderDetail_Orders 
-foreign key (ordtOrderId) references Orders(ordId) 
+foreign key (odOrderId) references Orders(ordId) 
 on delete cascade 
 on update cascade
 go
 
 alter table OrderDetail
 add constraint FK_OrderDetail_Book 
-foreign key (ordtBookId) references Book(bkId) 
+foreign key (odBookId) references Book(bkId) 
 on delete cascade 
 on update cascade
 go
 
 --unique bookid and orderid
 create unique nonclustered index UQ_OrderDetail 
-on OrderDetail(ordtBookId,ordtOrderId)
+on OrderDetail(odBookId,odOrderId)
 go
 
 create table Comments (
@@ -130,27 +125,23 @@ create table Comments (
 )
 go
 
-alter table Comment 
+alter table Comments
 add constraint FK_Feedback_Book 
 foreign key (bookID) references Book(bkId) 
 on delete cascade 
 on update cascade
 go
 
-alter table Comment 
+alter table Comments 
 add constraint FK_Feedback_UserAccounts
 foreign key (UserID) references UserAccounts(UserID) 
 on delete cascade 
 on update cascade
 go
 
---1. Show pubId, pubName, pubAddress and pubPhoneNo with address in HCM
-select pubId, pubName, pubAddress, pubPhoneNo 
-from Publisher 
-where pubAddress like N'%Thành phố Hồ Chí Minh'
 
 --2. Show bkId, bkTitle, bkPrice, bkAvailableQuantity with price >= 150.000d and order by price desc
-select bkId, bkTitle, bkPrice, bkAvailableQuantity 
+select bkId, bkTitle, bkPrice
 from Book 
 where bkPrice >= 150.000
 order by bkPrice desc
