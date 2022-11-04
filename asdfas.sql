@@ -1,4 +1,4 @@
-use suckmydick;
+use Vinabook;
 
 create table UserAccounts (
 	userID int identity(1,1) primary key,
@@ -81,6 +81,7 @@ create table Orders (
 )
 go
 
+--Orders and OrderDetail FK
 alter table Orders
 add constraint FK_Orders_UserID
 foreign key (ordUserID) references UserAccounts(userID)
@@ -125,6 +126,7 @@ create table Comments (
 )
 go
 
+--Comments FK
 alter table Comments
 add constraint FK_Feedback_Book 
 foreign key (bookID) references Book(bkId) 
