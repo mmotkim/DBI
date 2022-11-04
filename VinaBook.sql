@@ -147,8 +147,8 @@ on update cascade
 go
 
 
---2. Show bkId, bkTitle, bkPrice, bkAvailableQuantity with price >= 150.000d and order by price desc
-select bkId, bkTitle, bkPrice
+-- Show bkId, bkTitle, bkPrice, stock with price >= 150.000d and order by price desc
+select bkId, bkTitle, bkPrice, bkStock
 from Book 
 where bkPrice >= 150.000
 order by bkPrice desc
