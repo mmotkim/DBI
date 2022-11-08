@@ -1,5 +1,30 @@
-use segg;
+set nocount on
+go
 
+use master
+go
+if exists (select * from sysdatabases where name = 'Vinabook')
+	drop database VinaBook
+go
+
+declare @device_directory nvarchar(520)
+select @device_directory = substring(filename, 1, charindex(N'master.mdf', LOWER(filename)) - 1)
+from master.dbo.sysaltfiles where dbid = 1 and fileid = 1
+
+execute (N'create database Vinabook
+	on primary (name = N''Vinabook'', filename = N''' + @device_directory + N'Vinabook.mdf'')
+	log on (name = N''Vinabook_log'', filename = N''' + @device_directory + N'Vinabook.ldf'')')
+go
+
+alter database Vinabook set recovery simple
+
+go
+
+set quoted_identifier on
+go
+
+use "Vinabook"
+go
 create table UserAccounts (
 	userID int primary key,
 	userName nvarchar(100) not null,
@@ -102,11 +127,6 @@ on delete cascade
 on update cascade
 go
 
--- Book Default 
-ALTER TABLE Book
-ADD CONSTRAINT Default_bkPrice
-DEFAULT 0 FOR bkPrice;
-go
 
 
 create table Orders (
@@ -208,7 +228,7 @@ create table Liked (
 )
 
 alter table Liked
-add constrant FK_Liked_UserAccounts
+add constraint FK_Liked_UserAccounts
 foreign key (userId) references UserAccounts(userID)
 on delete cascade
 on update cascade
