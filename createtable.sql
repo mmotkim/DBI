@@ -16,7 +16,7 @@ DEFAULT 'Others' FOR userGender;
 go
 
 create table Book (
-	bookId  varchar(10) primary key,
+	bookId varchar(10) primary key,
 	bkTitle nvarchar(100) not null,
 	PriceAfter money not null, -- Gia sau khi giam gia mac dinh
 	defaultDiscount int not null, -- Giam gia mac dinh 
@@ -165,7 +165,7 @@ go
 
 alter table OrderDetail
 add constraint FK_OrderDetail_Book 
-foreign key (odBookId) references Book(bkId) 
+foreign key (odBookId) references Book(bookId) 
 on delete cascade 
 on update cascade
 go
@@ -190,7 +190,7 @@ go
 
 alter table Comments
 add constraint FK_Feedback_Book 
-foreign key (bookID) references Book(bkId) 
+foreign key (bookID) references Book(bookId) 
 on delete cascade 
 on update cascade
 go
@@ -216,7 +216,7 @@ go
 
 alter table Liked
 add constraint FK_Liked_Book
-foreign key (bookId) references Book(bkId)
+foreign key (bookId) references Book(bookId)
 on delete cascade
 on update cascade
 go
