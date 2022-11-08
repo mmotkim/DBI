@@ -1,3 +1,4 @@
+use segg;
 
 create table UserAccounts (
 	userID int primary key,
@@ -44,8 +45,6 @@ go
 alter table Book
 add constraint CHK_cover
 CHECK (cover like 'Khong' or cover like 'Co')
-on delete cascade 
-on update cascade
 go
 
 create table Author (
@@ -76,7 +75,7 @@ go
 --Genre FK
 alter table SubGenre
 add constraint FK_SubGenre_Genre 
-foreign key (genreID) references Gender(genreID) 
+foreign key (genreID) references Genre(genreID) 
 on delete cascade 
 on update cascade
 go
@@ -84,21 +83,21 @@ go
 --Book FK
 alter table Book
 add constraint FK_Book_SubGenre
-foreign key (bkSubGenreID) references SubGenre(SubGenreID)
+foreign key (bookSubGenreID) references SubGenre(SubGenreID)
 on delete cascade
 on update cascade
 go
 
 alter table Book
 add constraint FK_Book_Publisher 
-foreign key (bkPublisherId) references Publisher(pubId) 
+foreign key (bookPublisherId) references Publisher(pubId) 
 on delete cascade 
 on update cascade
 go
 
 alter table Book
 add constraint FK_Book_Author 
-foreign key (bkAuthorId) references Author(authorId) 
+foreign key (bookAuthorId) references Author(authorId) 
 on delete cascade 
 on update cascade
 go
@@ -187,8 +186,6 @@ go
 alter table Comments
 add constraint CHK_Rating
 CHECK (Rating >= 0 AND Rating <= 5)
-on delete cascade 
-on update cascade
 go
 
 alter table Comments
@@ -207,7 +204,7 @@ go
 
 create table Liked (
 	userId int,
-	bookId int
+	bookId varchar(10)
 )
 
 alter table Liked
